@@ -13,12 +13,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Removes console logs in production
-      },
-    },
+    // Using esbuild minifier instead of terser since it's built-in to Vite
+    minify: 'esbuild',
   },
   server: {
     port: 3000 // Optional: specify a port

@@ -1,0 +1,6 @@
+{
+  "name": "FoodLens AI",
+  "description": "An AI-powered food journal that analyzes food images to provide detailed nutritional breakdowns, health assessments, tailored advice, and a confidence score. Upload an image of your meal to get started with FoodLens AI.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

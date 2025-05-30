@@ -1,0 +1,27 @@
+{
+  "name": "foodlens-ai",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "FoodLens AI is an innovative web application designed to provide instant nutritional analysis of your meals. Simply upload an image of your food, and our AI-powered engine will deliver a detailed breakdown of food items, estimated quantities, calories, macronutrients, key vitamins/minerals, a health assessment, tailored dietary advice, and a confidence score for the analysis.",
+  "main": "index.tsx",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^1.0.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

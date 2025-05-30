@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodLens AI - Nutritional Analysis</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <style>
+      :root {
+        /* Modern Light Theme Palette - Refined */
+        --modern-font-family: 'Inter', 'Poppins', sans-serif; /* Inter as primary, Poppins as fallback */
+
+        --modern-bg-primary: #F9FAFB; /* Tailwind gray-50 */
+        --modern-bg-primary-eff: linear-gradient(180deg, #FFFFFF 0%, #F9FAFB 100%);
+        --modern-bg-secondary: #FFFFFF; 
+        
+        --modern-accent-primary: #3B82F6; /* Tailwind blue-500 */
+        --modern-accent-primary-darker: #2563EB; /* Tailwind blue-600 */
+        --modern-accent-secondary: #10B981; /* Tailwind green-500 */
+        --modern-accent-secondary-darker: #059669; /* Tailwind green-600 */
+        --modern-accent-tertiary: #F59E0B; /* Tailwind amber-500 */
+        --modern-accent-danger: #EF4444; /* Tailwind red-500 */
+        
+        --modern-text-primary: #1F2937; /* Tailwind gray-800 */
+        --modern-text-secondary: #374151; /* Tailwind gray-700 */
+        --modern-text-tertiary: #6B7280; /* Tailwind gray-500 */
+        
+        --modern-border-primary: #E5E7EB; /* Tailwind gray-200 */
+        --modern-border-secondary: #D1D5DB; /* Tailwind gray-300 */
+        --modern-focus-ring-color: rgba(59, 130, 246, 0.35); /* Based on new accent primary */
+
+        --modern-shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.07);
+        --modern-shadow-medium: 0 6px 18px rgba(0, 0, 0, 0.09);
+        --modern-shadow-large: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+        /* Specific Nutrient/Macro Colors */
+        --modern-calorie-color: #F97316;      /* Tailwind orange-500 */
+        --modern-calorie-color-darker: #EA580C; /* Tailwind orange-600 */
+        --modern-protein-color: var(--modern-accent-secondary);
+        --modern-protein-color-darker: var(--modern-accent-secondary-darker);
+        --modern-fat-color: var(--modern-accent-tertiary);
+        --modern-fat-color-darker: #D97706;    /* Tailwind amber-600 */
+        --modern-carbs-color: #8B5CF6;       /* Tailwind violet-500 */
+        --modern-carbs-color-darker: #7C3AED;  /* Tailwind violet-600 */
+        --modern-sodium-color: #06B6D4;       /* Tailwind cyan-500 */
+        --modern-cholesterol-color: #EC4899;   /* Tailwind pink-500 */
+        --modern-fiber-color: #047857;        /* Tailwind green-700 */
+        --modern-sugars-color: var(--modern-accent-danger);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--modern-font-family);
+        background: var(--modern-bg-primary-eff);
+        color: var(--modern-text-primary);
+        overflow-x: hidden;
+        padding-top: 80px; /* Added padding for fixed nav bar */
+      }
+      
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05); /* Lighter track */
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--modern-border-secondary); /* Softer thumb */
+        border-radius: 5px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--modern-text-tertiary); 
+      }
+
+      .modern-card {
+        background-color: var(--modern-bg-secondary);
+        border: 1px solid var(--modern-border-primary);
+        box-shadow: var(--modern-shadow-soft);
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+      }
+      .modern-card:hover {
+        border-color: var(--modern-border-secondary); 
+        box-shadow: var(--modern-shadow-medium);
+        transform: translateY(-2px);
+      }
+      
+      .text-modern-accent-primary { color: var(--modern-accent-primary); }
+      .text-modern-accent-secondary { color: var(--modern-accent-secondary); }
+      .text-modern-accent-tertiary { color: var(--modern-accent-tertiary); }
+      .text-modern-accent-danger { color: var(--modern-accent-danger); }
+
+
+      .text-gradient-modern {
+        background: linear-gradient(to right, var(--modern-accent-primary-darker), var(--modern-accent-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+      .text-super-gradient-modern { 
+        background: linear-gradient(120deg, var(--modern-accent-primary) 20%, var(--modern-accent-secondary) 60%, var(--modern-accent-primary-darker) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+
+      .underline-gradient-modern {
+        position: relative;
+        padding-bottom: 0.5rem; 
+      }
+      .underline-gradient-modern::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0; 
+        width: 100%; 
+        max-width: 100px; 
+        height: 3px;
+        background: linear-gradient(to right, var(--modern-accent-primary), var(--modern-accent-secondary));
+        border-radius: 3px;
+      }
+       .underline-gradient-modern.centered::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+      }
+
+      .button-modern-primary {
+        background-color: var(--modern-accent-primary);
+        color: #FFFFFF; 
+        transition: all 0.3s ease-in-out;
+        padding: 0.875rem 1.75rem;
+        font-weight: 600;
+        border-radius: 0.5rem; 
+        border: none;
+        box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2); /* Updated shadow color */
+      }
+      .button-modern-primary:hover {
+        background-color: var(--modern-accent-primary-darker); 
+        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3); /* Updated shadow color */
+        transform: translateY(-1px);
+      }
+      .button-modern-primary:active {
+        background-color: #1E40AF; /* Tailwind blue-700 or darker */
+        transform: translateY(0px);
+        box-shadow: 0 1px 2px rgba(59, 130, 246, 0.2); /* Updated shadow color */
+      }
+      .button-modern-primary:disabled {
+        background: var(--modern-border-secondary); 
+        color: var(--modern-text-tertiary);
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+        opacity: 0.7;
+      }
+      
+      .button-modern-secondary {
+        background-color: transparent;
+        color: var(--modern-accent-primary);
+        border: 2px solid var(--modern-accent-primary);
+        transition: all 0.3s ease-in-out;
+        padding: calc(0.875rem - 2px) calc(1.75rem - 2px);
+        font-weight: 600;
+        border-radius: 0.5rem;
+      }
+      .button-modern-secondary:hover {
+        background-color: var(--modern-accent-primary);
+        color: #FFFFFF; 
+        transform: translateY(-1px);
+      }
+      .button-modern-secondary:active {
+        transform: translateY(0px);
+      }
+       .button-modern-secondary:disabled {
+        border-color: var(--modern-border-secondary); 
+        color: var(--modern-text-tertiary);
+        cursor: not-allowed;
+        background-color: transparent;
+        transform: none;
+        opacity: 0.7;
+      }
+
+      .modern-focus-ring:focus-visible {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px var(--modern-focus-ring-color);
+      }
+
+      .modern-pill-label {
+        display: inline-block;
+        background-color: rgba(59, 130, 246, 0.1); /* Updated accent for background */
+        color: var(--modern-accent-primary);
+        padding: 0.35rem 1rem;
+        border-radius: 9999px; 
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        border: 1px solid rgba(59, 130, 246, 0.3); /* Updated accent for border */
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      
+      .modern-input {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background-color: var(--modern-bg-secondary);
+        border: 1px solid var(--modern-border-secondary);
+        border-radius: 0.5rem; 
+        color: var(--modern-text-primary);
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .modern-input::placeholder {
+        color: var(--modern-text-tertiary);
+        opacity: 0.8; /* Slightly softer placeholder */
+      }
+      .modern-input:focus {
+        border-color: var(--modern-accent-primary);
+        box-shadow: 0 0 0 3px var(--modern-focus-ring-color);
+        outline: none;
+      }
+
+      .animate-fadeInScale {
+        animation: fadeInScale 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      }
+      @keyframes fadeInScale {
+        from { opacity: 0; transform: translateY(10px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      .animate-slideUpFadeIn {
+        animation: slideUpFadeIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      }
+      @keyframes slideUpFadeIn {
+         from { opacity: 0; transform: translateY(20px); }
+         to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-slideUpFadeIn-delay-1 { animation-delay: 0.1s; opacity:0; animation-fill-mode: forwards; }
+      .animate-slideUpFadeIn-delay-2 { animation-delay: 0.2s; opacity:0; animation-fill-mode: forwards; }
+      .animate-slideUpFadeIn-delay-3 { animation-delay: 0.3s; opacity:0; animation-fill-mode: forwards; }
+      .animate-slideUpFadeIn-delay-4 { animation-delay: 0.4s; opacity:0; animation-fill-mode: forwards; }
+
+      .file-drop-zone {
+        transition: all 0.3s ease-in-out;
+        border-width: 2px;
+        border-style: dashed;
+        border-color: var(--modern-border-secondary);
+        background-color: rgba(0, 0, 0, 0.015); /* Slightly more subtle */
+      }
+      .file-drop-zone:hover {
+        border-color: var(--modern-accent-primary);
+        background-color: rgba(59, 130, 246, 0.05); /* Updated accent for background */
+      }
+      .file-drop-zone.active-drag {
+        border-color: var(--modern-accent-secondary); 
+        border-width: 2px; 
+        background-color: rgba(16, 185, 129, 0.08); /* Updated accent for background */
+        transform: scale(1.01);
+      }
+      .file-drop-zone.active-drag svg {
+        transform: scale(1.1);
+        color: var(--modern-accent-secondary);
+      }
+      .file-drop-zone.active-drag .upload-text {
+         color: var(--modern-accent-secondary);
+         font-weight: 600;
+      }
+
+      .pulsing-dots span {
+        animation-name: pulseDotModern;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        background: linear-gradient(to right, var(--modern-accent-primary), var(--modern-accent-secondary));
+      }
+      .pulsing-dots span:nth-child(1) { animation-delay: -0.32s; }
+      .pulsing-dots span:nth-child(2) { animation-delay: -0.16s; }
+      .pulsing-dots span:nth-child(3) { animation-delay: 0s; }
+
+      @keyframes pulseDotModern {
+        0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+        40% { transform: scale(1.0); opacity: 1; }
+      }
+
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--modern-border-primary), transparent);
+        margin: 1.5rem 0; 
+      }
+
+      a {
+        color: var(--modern-accent-primary);
+        text-decoration: none;
+        transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
+      }
+      a:hover {
+        color: var(--modern-accent-primary-darker); 
+        text-decoration: underline;
+      }
+
+      .nav-scrolled {
+        box-shadow: var(--modern-shadow-soft);
+        background: rgba(255, 255, 255, 0.85) !important; /* Slightly less transparent */
+        backdrop-filter: blur(10px); /* Increased blur */
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--modern-border-primary);
+      }
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.0.1"
+  }
+}
+</script>
+</head>
+  <body class="selection:bg-[var(--modern-accent-primary)] selection:text-white"> 
+    <div id="root" class="app-wrapper"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>

@@ -60,7 +60,7 @@ const FeaturesSection: React.FC = () => (
     <div className="text-center mb-6 sm:mb-8">
       <span className="modern-pill-label">Key Benefits</span>
       <h2 className="text-4xl sm:text-5xl font-bold text-super-gradient-modern mb-3">
-        Why FoodLens AI?
+        Why Meal Scanner?
       </h2>
       <p className="text-lg text-[var(--modern-text-secondary)] max-w-2xl mx-auto">
         Discover the power of understanding your food on a deeper level.

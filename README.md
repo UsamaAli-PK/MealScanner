@@ -1,7 +1,6 @@
+# MealScanner - Nutritional Analysis
 
-# FoodLens AI - Nutritional Analysis
-
-FoodLens AI is an innovative web application designed to provide instant nutritional analysis of your meals. Simply upload an image of your food, and our AI-powered engine will deliver a detailed breakdown of food items, estimated quantities, calories, macronutrients, key vitamins/minerals, a health assessment, tailored dietary advice, and a confidence score for the analysis.
+MealScanner is an innovative web application designed to provide instant nutritional analysis of your meals. Simply upload an image of your food, and our AI-powered engine will deliver a detailed breakdown of food items, estimated quantities, calories, macronutrients, key vitamins/minerals, a health assessment, tailored dietary advice, and a confidence score for the analysis.
 
 The application features a modern, responsive interface with smooth animations, ensuring a delightful user experience.
 
@@ -13,7 +12,7 @@ The application features a modern, responsive interface with smooth animations, 
 2.  [Technologies Used](#technologies-used)
 3.  [Prerequisites](#prerequisites)
 4.  [Getting Started (Local Setup)](#getting-started-local-setup)
-5.  [How to Use FoodLens AI](#how-to-use-foodlens-ai)
+5.  [How to Use MealScanner](#how-to-use-mealscanner)
 6.  [Project Structure](#project-structure)
 7.  [API Integration (`@google/genai`)](#api-integration-googlegenai)
 8.  [Styling](#styling)
@@ -61,7 +60,7 @@ Before you begin, ensure you have the following installed:
 
 ## Getting Started (Local Setup)
 
-To run FoodLens AI locally, you'll need a development server that can handle JSX and TypeScript (`.tsx` files) and serve `index.html` as the entry point. **Vite** is highly recommended for this.
+To run MealScanner locally, you'll need a development server that can handle JSX and TypeScript (`.tsx` files) and serve `index.html` as the entry point. **Vite** is highly recommended for this.
 
 1.  **Clone the Repository (Optional):**
     If you have the project files, you can skip this step. Otherwise, clone the repository:
@@ -112,7 +111,7 @@ To run FoodLens AI locally, you'll need a development server that can handle JSX
     ```
     This will typically open the application in your default web browser (e.g., at `http://localhost:5173`).
 
-## How to Use FoodLens AI
+## How to Use MealScanner
 
 1.  **Launch the App:** Open the application in your web browser (after local setup or via a deployed link).
 
@@ -235,4 +234,4 @@ The project follows a standard React component-based architecture:
 
 ---
 
-Thank you for using FoodLens AI! We hope it helps you on your journey to better understanding your nutrition.
+Thank you for using MealScanner! We hope it helps you on your journey to better understanding your nutrition.

@@ -262,7 +262,7 @@ const App: React.FC = () => {
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center">
               <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({top:0, behavior: 'smooth'});}} className="text-3xl font-bold text-super-gradient-modern cursor-pointer">
-                FoodLens AI
+                MEAL SCANNER
               </a>
             </div>
             <div className="hidden md:flex items-center space-x-4">

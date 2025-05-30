@@ -51,7 +51,7 @@ const DeveloperCardComponent: React.FC = () => {
       <div className="flex justify-center space-x-5 sm:space-x-7">
         {[
           { href: "https://github.com/UsamaAli-PK", label: "Usama Ali's GitHub", Icon: GithubIcon, rotation: "-8deg" },
-          { href: "", label: "Usama Ali's LinkedIn", Icon: LinkedinIcon, rotation: "0deg" },
+          { href: "https://linkedin.com/in/usamaalipk", label: "Usama Ali's LinkedIn", Icon: LinkedinIcon, rotation: "0deg" },
           { href: "#", label: "Usama Ali's X (Twitter)", Icon: XTwitterIcon, rotation: "8deg" },
         ].map(({ href, label, Icon, rotation }) => (
           <a 

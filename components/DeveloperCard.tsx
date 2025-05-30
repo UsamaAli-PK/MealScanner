@@ -1,5 +1,5 @@
-
 import React from 'react';
+import profileImage from '../images/usamaali.jpeg'; 
 
 const GithubIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -20,12 +20,11 @@ const XTwitterIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 const DeveloperCardComponent: React.FC = () => {
-  const profileImageUrl = "/images/usamaali.jpeg"; 
   return (
     <div className="modern-card p-6 sm:p-10 rounded-3xl shadow-xl max-w-xl mx-auto text-center transform transition-all duration-500 hover:scale-102">
       <div className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto mb-6 group">
         <img 
-          src={profileImageUrl}
+          src={profileImage} 
           alt="Usama Ali" 
           className="w-full h-full rounded-full object-cover border-4 border-[var(--modern-bg-secondary)] shadow-lg relative z-10 transition-transform duration-500 group-hover:scale-105"
         />

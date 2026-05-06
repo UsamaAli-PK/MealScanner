@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MealScanner - Nutritional Analysis</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="description" content="AI-powered food image analysis for detailed nutritional information and dietary insights" />
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="MealScanner" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%233B82F6;stop-opacity:1' /><stop offset='100%' style='stop-color:%2310B981;stop-opacity:1' /></linearGradient></defs><rect width='180' height='180' fill='url(%23grad)' rx='40'/><text x='90' y='105' font-size='90' font-weight='bold' text-anchor='middle' fill='white' font-family='Arial'>M</text></svg>" />
+    
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <style>
       :root {
@@ -331,6 +343,41 @@
   <body class="selection:bg-[var(--modern-accent-primary)] selection:text-white"> 
     <div id="root" class="app-wrapper"></div>
     <script type="module" src="/index.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then((registration) => {
+              console.log('Service Worker registered successfully:', registration);
+              
+              // Check for updates periodically
+              setInterval(() => {
+                registration.update();
+              }, 60000); // Check every minute
+            })
+            .catch((error) => {
+              console.warn('Service Worker registration failed:', error);
+            });
+        });
+      }
+
+      // Handle install prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // You can store this for later use if needed
+        console.log('Install prompt is available');
+      });
+
+      // Handle app installed
+      window.addEventListener('appinstalled', () => {
+        console.log('MealScanner app installed successfully');
+        deferredPrompt = null;
+      });
+    </script>
   </body>
 </html><link rel="stylesheet" href="index.css">
 <script src="index.tsx" type="module"></script>
